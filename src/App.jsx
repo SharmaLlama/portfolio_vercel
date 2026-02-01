@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Book, Code, FileText, User, Star, GitBranch, ExternalLink, ChevronRight, BookOpen, Award } from 'lucide-react';
+import { Github, Linkedin, Mail, Book, Code, FileText, User, Star, StarHalf, GitBranch, ExternalLink, ChevronRight, BookOpen, Award } from 'lucide-react';
 
 
 const GoogleScholarIcon = ({ size = 20, className = "" }) => (
@@ -46,16 +46,16 @@ export default function ResearchPortfolio() {
   const books = [
     {
       title: "The Three-Body Problem",
-      author: "Liu Cixin",
+      author: "Cixin Liu",
       cover: "https://images-na.ssl-images-amazon.com/images/P/0765382032.01._SCLZZZZZZZ_.jpg",
-      rating: 4,
+      rating: 3.5,
       category: "fiction",
       review: "First book of Lui Cixin's series. Great First intro about X. First book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X ",
       year: 2025
     },
     {
       title: "The Dark Forest",
-      author: "Liu Cixin",
+      author: "Cixin Liu",
       cover: "https://m.media-amazon.com/images/I/81yrzReGlRL._SL1500_.jpg",
       rating: 4,
       category: "fiction",
@@ -64,7 +64,7 @@ export default function ResearchPortfolio() {
     },
     {
       title: "The Death's End",
-      author: "Liu Cixin",
+      author: "Cixin Liu",
       cover: "https://m.media-amazon.com/images/I/91MfIt8mhaL._SL1500_.jpg",
       rating: 4,
       category: "fiction",
@@ -116,7 +116,7 @@ export default function ResearchPortfolio() {
       title: "Atomic Habits",
       author: "James Clear",
       cover: "https://images-na.ssl-images-amazon.com/images/P/0735211299.01._SCLZZZZZZZ_.jpg",
-      rating: 5,
+      rating: 4.5,
       category: "non-fiction",
       review: "Changed my approach to building consistent learning habits. 1% better every day.",
       year: 2025
@@ -136,7 +136,7 @@ export default function ResearchPortfolio() {
       title: "Never Split the Difference: Negotiating as if your life Depends on it",
       author: "Chris Voss",
       cover: "https://m.media-amazon.com/images/I/81PPq8CP4sL._SL1500_.jpg",
-      rating: 5,
+      rating: 1,
       category: "non-fiction",
       review: "Best book on negotiation. It's a classic.",
       year: 2025
@@ -146,7 +146,7 @@ export default function ResearchPortfolio() {
       title: "7 Habits of Highly Effective People",
       author: "Stephen R. Covey",
       cover: "https://m.media-amazon.com/images/I/71rmHeQeuRL._SL1255_.jpg",
-      rating: 5,
+      rating: 2,
       category: "non-fiction",
       review: "Best book on the 7 habits of highly effective people. It's a classic.",
       year: 2025
@@ -156,7 +156,7 @@ export default function ResearchPortfolio() {
       title: "Outlive",
       author: "Dr. Peter Attia",
       cover: "https://m.media-amazon.com/images/I/71mTMyT9Q0L._SL1500_.jpg",
-        rating: 5,
+        rating: 3,
       category: "non-fiction",
       review: "Best book on how to live a long and healthy life. It's a classic.",
       year: 2025
@@ -186,13 +186,24 @@ export default function ResearchPortfolio() {
     : books.filter(book => book.category === bookFilter);
 
   const renderStars = (rating) => {
-    return [...Array(5)].map((_, i) => (
-      <Star
-        key={i}
-        size={14}
-        className={i < rating ? "fill-amber-400 text-amber-400" : "text-slate-600"}
-      />
-    ));
+    const fullStars = Math.floor(rating);
+    const hasHalf = rating % 1 >= 0.5;
+    return [...Array(5)].map((_, i) => {
+      if (i < fullStars) {
+        return <Star key={i} size={14} className="fill-amber-400 text-amber-400" />;
+      }
+      if (i === fullStars && hasHalf) {
+        return (
+          <span key={i} className="relative inline-block" style={{ width: 14, height: 14 }}>
+            <Star size={14} className="text-slate-600 absolute inset-0" />
+            <span className="absolute inset-0 overflow-hidden" style={{ width: '50%' }}>
+              <Star size={14} className="fill-amber-400 text-amber-400" />
+            </span>
+          </span>
+        );
+      }
+      return <Star key={i} size={14} className="text-slate-600" />;
+    });
   };
 
   const HomePage = () => (
@@ -372,7 +383,7 @@ export default function ResearchPortfolio() {
           </button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {books.filter(b => b.rating >= 4).slice(0, 6).map((book, i) => (
+          {[...books].sort((a, b) => b.rating - a.rating).slice(0, 6).map((book, i) => (
             <div
               key={i}
               className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden hover:border-cyan-500/50 transition-all hover:-translate-y-1 group cursor-pointer"
@@ -1009,11 +1020,11 @@ export default function ResearchPortfolio() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-              <span className="text-xl font-bold text-cyan-400 tracking-tight">
+              <span className="text-lg font-bold text-cyan-400 tracking-tight whitespace-nowrap">
                 {'<Utkarsh  Sharma />'}
               </span>
             </div>
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center 4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -1029,19 +1040,18 @@ export default function ResearchPortfolio() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <a href="https://github.com/SharmaLlama" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                <Github size={20} />
+                <Github size={18} />
               </a>
               <a href="https://linkedin.com/in/yourusername" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                <Linkedin size={20} />
+                <Linkedin size={18} />
               </a>
               <a href="mailto:sharmautkarsh0504@gmail.com" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                <Mail size={20} />
+                <Mail size={18} />
               </a>
-
               <a href="https://scholar.google.com/citations?user=agrJWw4AAAAJ&hl=en" className="text-slate-400 hover:text-cyan-400 transition-colors">
-                <GoogleScholarIcon size={20} />
+                <GoogleScholarIcon size={22} />
               </a>
             </div>
           </div>
