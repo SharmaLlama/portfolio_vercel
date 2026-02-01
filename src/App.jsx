@@ -861,7 +861,7 @@ export default function ResearchPortfolio() {
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
               <span className="text-xl font-bold text-cyan-400 tracking-tight">
-                {'<Utkarsh Sharma />'}
+                {'<Utkarsh  Sharma TEST COMMIT />'}
               </span>
             </div>
             <div className="hidden lg:flex items-center gap-6">
