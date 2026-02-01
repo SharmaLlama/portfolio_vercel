@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Book, Code, FileText, User, Star, GitBranch, ExternalLink, ChevronRight, BookOpen, Award } from 'lucide-react';
 
+
+const GoogleScholarIcon = ({ size = 20, className = "" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M2 7l10-4 10 4-10 4z" />
+    <path d="M6 9v5c0 2.2 2.7 4 6 4s6-1.8 6-4V9" />
+    <path d="M20 7v5" />
+    <circle cx="20" cy="13" r="1" fill="currentColor" />
+  </svg>
+);
+
 export default function ResearchPortfolio() {
   const [activeTab, setActiveTab] = useState('home');
   const [scrollY, setScrollY] = useState(0);
   const [bookFilter, setBookFilter] = useState('all');
+  const [expandedBook, setExpandedBook] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -24,30 +45,71 @@ export default function ResearchPortfolio() {
 
   const books = [
     {
-      title: "Designing Data-Intensive Applications",
-      author: "Martin Kleppmann",
-      cover: "https://images-na.ssl-images-amazon.com/images/P/1449373321.01._SCLZZZZZZZ_.jpg",
-      rating: 5,
-      category: "technical",
-      review: "The bible of distributed systems. Essential reading for understanding consistency, replication, and partitioning.",
-      year: 2025
-    },
-    {
-      title: "Reinforcement Learning: An Introduction",
-      author: "Sutton & Barto",
-      cover: "https://images-na.ssl-images-amazon.com/images/P/0262039249.01._SCLZZZZZZZ_.jpg",
-      rating: 5,
-      category: "technical",
-      review: "The foundational text for RL. Dense but rewarding.",
-      year: 2025
-    },
-    {
       title: "The Three-Body Problem",
       author: "Liu Cixin",
       cover: "https://images-na.ssl-images-amazon.com/images/P/0765382032.01._SCLZZZZZZZ_.jpg",
       rating: 4,
       category: "fiction",
-      review: "Mind-bending sci-fi that changed how I think about first contact and cosmic sociology.",
+      review: "First book of Lui Cixin's series. Great First intro about X. First book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about XFirst book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X.First book of Lui Cixin's series. Great First intro about X ",
+      year: 2025
+    },
+    {
+      title: "The Dark Forest",
+      author: "Liu Cixin",
+      cover: "https://m.media-amazon.com/images/I/81yrzReGlRL._SL1500_.jpg",
+      rating: 4,
+      category: "fiction",
+      review: "",
+      year: 2025
+    },
+    {
+      title: "The Death's End",
+      author: "Liu Cixin",
+      cover: "https://m.media-amazon.com/images/I/91MfIt8mhaL._SL1500_.jpg",
+      rating: 4,
+      category: "fiction",
+      review: "",
+      year: 2025
+    },
+
+    {
+      title: "The Da Vinci Code",
+      author: "Dan Brown",
+      cover: "https://m.media-amazon.com/images/I/71y4X5150dL._SL1500_.jpg",
+      rating: 4,
+      category: "fiction",
+      review: "Second book in the Robert Langdon series. Great story about the Da Vinci Code and the secrets of the church.",
+      year: 2025
+    },
+
+    {
+      title: "The Lost Symbol",
+      author: "Dan Brown",
+      cover: "https://m.media-amazon.com/images/I/81BlXbpNmuL._SL1500_.jpg",
+      rating: 4,
+      category: "fiction",
+      review: "Third book in the Robert Langdon series. Great story about the Lost Symbol and the secrets of the church.",
+      year: 2025
+    },
+
+    {
+      title: "Origin",
+      author: "Dan Brown",
+      cover: "https://m.media-amazon.com/images/I/51uorhgbCpL.jpg",
+      rating: 4,
+      category: "fiction",
+      review: "Fourth book in the Robert Langdon series. Great story about the Origin and the secrets of the church.",
+      year: 2025
+    },
+
+    
+    {
+      title: "Can't Hurt Me: Master Your Mind and Defy the Odds",
+      author: "David Goggins",
+      cover: "https://m.media-amazon.com/images/I/81YJFNc54lL._SL1500_.jpg",
+      rating: 4,
+      category: "non-fiction",
+      review: "",
       year: 2025
     },
     {
@@ -59,24 +121,57 @@ export default function ResearchPortfolio() {
       review: "Changed my approach to building consistent learning habits. 1% better every day.",
       year: 2025
     },
+
     {
-      title: "Project Hail Mary",
-      author: "Andy Weir",
-      cover: "https://images-na.ssl-images-amazon.com/images/P/0593135202.01._SCLZZZZZZZ_.jpg",
+      title: "How to Win Friends and Influence People",
+      author: "Dale Carnegie",
+      cover: "https://m.media-amazon.com/images/I/71K7wW4VEoL._SL1500_.jpg",
       rating: 5,
-      category: "fiction",
-      review: "Pure joy. Science problem-solving at its finest with genuine emotional depth.",
-      year: 2024
-    },
-    {
-      title: "Deep Work",
-      author: "Cal Newport",
-      cover: "https://images-na.ssl-images-amazon.com/images/P/1455586692.01._SCLZZZZZZZ_.jpg",
-      rating: 4,
       category: "non-fiction",
-      review: "Essential for anyone trying to do focused technical work in a distracted world.",
-      year: 2024
-    }
+      review: "Best book on how to win friends and influence people. It's a classic.",
+      year: 2025
+    },
+
+    {
+      title: "Never Split the Difference: Negotiating as if your life Depends on it",
+      author: "Chris Voss",
+      cover: "https://m.media-amazon.com/images/I/81PPq8CP4sL._SL1500_.jpg",
+      rating: 5,
+      category: "non-fiction",
+      review: "Best book on negotiation. It's a classic.",
+      year: 2025
+    },
+
+    {
+      title: "7 Habits of Highly Effective People",
+      author: "Stephen R. Covey",
+      cover: "https://m.media-amazon.com/images/I/71rmHeQeuRL._SL1255_.jpg",
+      rating: 5,
+      category: "non-fiction",
+      review: "Best book on the 7 habits of highly effective people. It's a classic.",
+      year: 2025
+    },
+
+    {
+      title: "Outlive",
+      author: "Dr. Peter Attia",
+      cover: "https://m.media-amazon.com/images/I/71mTMyT9Q0L._SL1500_.jpg",
+        rating: 5,
+      category: "non-fiction",
+      review: "Best book on how to live a long and healthy life. It's a classic.",
+      year: 2025
+    },
+
+    {
+      title: "Sapiens: A Brief History of Humankind",
+      author: "Yuval Noah Harari",
+      cover: "https://m.media-amazon.com/images/I/713jIoMO3UL._SL1500_.jpg",
+        rating: 5,
+      category: "non-fiction",
+      review: "Best book on the history of humanity. It's a classic.",
+      year: 2025
+    },
+  
   ];
 
   const bookCategories = [
@@ -773,11 +868,11 @@ export default function ResearchPortfolio() {
       </p>
 
       {/* Filter Buttons */}
-      <div className="flex flex-wrap gap-3 mb-12">
+      <div className="flex flex-wrap gap-3 mb-10">
         {bookCategories.map(category => (
           <button
             key={category.id}
-            onClick={() => setBookFilter(category.id)}
+            onClick={() => { setBookFilter(category.id); setExpandedBook(null); }}
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               bookFilter === category.id
                 ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50'
@@ -789,40 +884,94 @@ export default function ResearchPortfolio() {
         ))}
       </div>
 
-      {/* Books Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredBooks.map((book, i) => (
-          <div
-            key={i}
-            className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all hover:-translate-y-1 group"
-          >
-            <div className="aspect-[2/3] bg-slate-800 overflow-hidden">
-              <img
-                src={book.cover}
-                alt={book.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="font-bold text-slate-200 mb-1 line-clamp-2 group-hover:text-cyan-400 transition-colors">
-                {book.title}
-              </h3>
-              <p className="text-slate-400 text-sm mb-2">{book.author}</p>
-              <div className="flex items-center gap-1 mb-3">
-                {renderStars(book.rating)}
+      {/* Books Grid - 6 columns on desktop, compact cards */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
+        {filteredBooks.map((book, i) => {
+          const isExpanded = expandedBook === i;
+          return (
+            <React.Fragment key={i}>
+              {/* Compact Book Card */}
+              <div
+                onClick={() => setExpandedBook(isExpanded ? null : i)}
+                className={`relative cursor-pointer rounded-lg overflow-hidden border transition-all duration-200 group
+                  ${isExpanded
+                    ? 'border-cyan-500/70 bg-slate-900 -translate-y-1 shadow-lg shadow-cyan-500/10'
+                    : 'border-slate-800 bg-slate-900 hover:border-cyan-500/40 hover:-translate-y-1'
+                  }`}
+              >
+                {/* Cover */}
+                <div className="aspect-[2/3] bg-slate-800 overflow-hidden">
+                  <img
+                    src={book.cover}
+                    alt={book.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+
+                {/* Info below cover */}
+                <div className="p-2">
+                  <h3 className={`font-semibold text-xs leading-tight mb-1 line-clamp-2 transition-colors ${isExpanded ? 'text-cyan-400' : 'text-slate-200 group-hover:text-cyan-400'}`}>
+                    {book.title}
+                  </h3>
+                  <p className="text-slate-500 text-xs truncate">{book.author}</p>
+                  <div className="flex items-center justify-between mt-1.5">
+                    <div className="flex items-center gap-0.5">
+                      {renderStars(book.rating)}
+                    </div>
+                    <ChevronRight
+                      size={12}
+                      className={`text-slate-600 transition-all duration-200 ${isExpanded ? 'rotate-90 text-cyan-400' : 'group-hover:text-cyan-500'}`}
+                    />
+                  </div>
+                </div>
               </div>
-              {book.review && (
-                <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
-                  {book.review}
-                </p>
+
+              {/* Expanded Review Panel — spans full row width */}
+              {isExpanded && (
+                <div className="col-span-full bg-slate-900 border border-cyan-500/30 rounded-xl p-5 -mt-1 mb-2">
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-1 flex-wrap">
+                        <h3 className="text-lg font-bold text-cyan-400">{book.title}</h3>
+                        <span className={`text-xs px-2 py-0.5 rounded-full border ${
+                          book.category === 'technical'
+                            ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400'
+                            : book.category === 'fiction'
+                            ? 'bg-purple-500/10 border-purple-500/30 text-purple-400'
+                            : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                        }`}>
+                          {book.category}
+                        </span>
+                      </div>
+                      <p className="text-slate-400 text-sm mb-2">{book.author} · {book.year}</p>
+                      <div className="flex items-center gap-1 mb-3">
+                        {renderStars(book.rating)}
+                        <span className="text-slate-500 text-xs ml-1">{book.rating}/5</span>
+                      </div>
+                      {book.review ? (
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                          {book.review}
+                        </p>
+                      ) : (
+                        <p className="text-slate-600 text-sm italic">No review yet.</p>
+                      )}
+                    </div>
+                    {/* Small cover thumbnail on the right */}
+                    <img
+                      src={book.cover}
+                      alt={book.title}
+                      className="w-16 h-24 object-cover rounded-md border border-slate-700 flex-shrink-0"
+                    />
+                  </div>
+                </div>
               )}
-            </div>
-          </div>
-        ))}
+            </React.Fragment>
+          );
+        })}
       </div>
 
       {/* Reading Stats */}
-      <div className="grid md:grid-cols-3 gap-6 mt-12">
+      <div className="grid md:grid-cols-3 gap-6 mt-14">
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
           <Book className="text-cyan-400 mb-3" size={28} />
           <div className="text-3xl font-bold text-cyan-400 mb-1">42</div>
@@ -861,7 +1010,7 @@ export default function ResearchPortfolio() {
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('home')}>
               <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
               <span className="text-xl font-bold text-cyan-400 tracking-tight">
-                {'<Utkarsh  Sharma TEST COMMIT />'}
+                {'<Utkarsh  Sharma />'}
               </span>
             </div>
             <div className="hidden lg:flex items-center gap-6">
@@ -889,6 +1038,10 @@ export default function ResearchPortfolio() {
               </a>
               <a href="mailto:sharmautkarsh0504@gmail.com" className="text-slate-400 hover:text-cyan-400 transition-colors">
                 <Mail size={20} />
+              </a>
+
+              <a href="https://scholar.google.com/citations?user=agrJWw4AAAAJ&hl=en" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <GoogleScholarIcon size={20} />
               </a>
             </div>
           </div>
