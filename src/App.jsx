@@ -82,7 +82,7 @@ export default function ResearchPortfolio() {
       {/* Hero Section */}
       <div className="mb-20">
         <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-          <span className="text-cyan-400 text-sm">Research Engineer in Training</span>
+          <span className="text-cyan-400 text-sm">Research Engineer</span>
         </div>
         <h1 className="text-7xl md:text-8xl font-bold mb-6 leading-none">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
@@ -92,7 +92,7 @@ export default function ResearchPortfolio() {
           <span className="text-slate-200">of Distributed Systems</span>
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl leading-relaxed">
-          Exploring reinforcement learning, distributed systems, and the intersection of theory and practice
+          Exploring Artificial Intelligence, reinforcement learning, distributed systems, and the intersection of theory and practice
           through hands-on projects and deep technical exploration.
         </p>
         
@@ -103,9 +103,9 @@ export default function ResearchPortfolio() {
           >
             View Projects <ChevronRight size={20} />
           </button>
-          <button className="px-6 py-3 border border-cyan-500/50 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all flex items-center gap-2">
+          {/* <button className="px-6 py-3 border border-cyan-500/50 text-cyan-400 rounded-lg font-semibold hover:bg-cyan-500/10 transition-all flex items-center gap-2">
             <FileText size={20} /> Download Resume
-          </button>
+          </button> */}
         </div>
 
         {/* Stats */}
@@ -597,7 +597,7 @@ export default function ResearchPortfolio() {
     <div className="pt-32 pb-20">
       <h2 className="text-5xl font-bold mb-6">Publications & Papers</h2>
       <p className="text-slate-400 text-lg mb-12 max-w-3xl">
-        Research and technical writing exploring distributed systems, reinforcement learning, and related topics.
+        Publish papers and technical reports exploring Artificial Intelligence and miscellaneous topics.
       </p>
       
       <div className="space-y-6">
@@ -746,7 +746,7 @@ export default function ResearchPortfolio() {
     <div className="pt-32 pb-20">
       <h2 className="text-5xl font-bold mb-6">Bookshelf</h2>
       <p className="text-slate-400 text-lg mb-8 max-w-3xl">
-        Technical deep dives, mind-expanding fiction, and everything in between. Books that shaped my thinking and fueled my journey into distributed systems and RL.
+        Books that I have read and enjoyed (or sometimes not enjoyed).
       </p>
 
       {/* Filter Buttons */}
