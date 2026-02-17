@@ -51,10 +51,25 @@ export default function ResearchPortfolio() {
     { id: 'fiction', label: 'Fiction' },
     { id: 'non-fiction', label: 'Non-Fiction' }
   ];
+  const sortedBooks = [...books].sort((a, b) => {
+    if (b.year !== a.year) {
+      return b.year - a.year; // Sort by year descending
+    }
+    // if (a.rating !== b.rating) {
+    //   return b.rating - a.rating; // Sort by rating descending
+    // }
+    // Sort by author name (ascending, case-insensitive)
+    const authorComp = a.author.localeCompare(b.author, undefined, { sensitivity: 'base' });
+    if (authorComp !== 0) {
+      return authorComp;
+    }
+    // Sort by book title (ascending, case-insensitive)
+    return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
+  });
 
   const filteredBooks = bookFilter === 'all' 
-    ? books 
-    : books.filter(book => book.category === bookFilter);
+      ? sortedBooks 
+    : sortedBooks.filter(book => book.category === bookFilter);
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
@@ -825,7 +840,7 @@ export default function ResearchPortfolio() {
                           {book.category}
                         </span>
                       </div>
-                      <p className="text-slate-400 text-sm mb-2">{book.author} · {book.year}</p>
+                      <p className="text-slate-400 text-sm mb-2">{book.author} · Read in {book.year}</p>
                       <div className="flex items-center gap-1 mb-3">
                         {renderStars(book.rating)}
                         <span className="text-slate-500 text-xs ml-1">{book.rating}/5</span>
@@ -856,17 +871,13 @@ export default function ResearchPortfolio() {
       <div className="grid md:grid-cols-3 gap-6 mt-14">
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
           <Book className="text-cyan-400 mb-3" size={28} />
-          <div className="text-3xl font-bold text-cyan-400 mb-1">42</div>
+          <div className="text-3xl font-bold text-cyan-400 mb-1">{books.length}</div>
           <div className="text-slate-500">Books Read</div>
         </div>
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-          <BookOpen className="text-cyan-400 mb-3" size={28} />
-          <div className="text-3xl font-bold text-cyan-400 mb-1">18</div>
-          <div className="text-slate-500">Technical Books</div>
-        </div>
+
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
           <Star className="text-cyan-400 mb-3" size={28} />
-          <div className="text-3xl font-bold text-cyan-400 mb-1">4.3</div>
+          <div className="text-3xl font-bold text-cyan-400 mb-1">{(sortedBooks.length > 0 ? (sortedBooks.reduce((sum, b) => sum + b.rating, 0) / sortedBooks.length).toFixed(1) : 0)}</div>
           <div className="text-slate-500">Avg Rating</div>
         </div>
       </div>
