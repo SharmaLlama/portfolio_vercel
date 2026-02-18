@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Book, Code, FileText, User, Star, StarHalf, GitBranch, ExternalLink, ChevronRight, BookOpen, Award } from 'lucide-react';
 import { books } from './data/books';
+import { publications } from './data/publications';
 
 
 const GoogleScholarIcon = ({ size = 20, className = "" }) => (
@@ -27,11 +28,25 @@ export default function ResearchPortfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [bookFilter, setBookFilter] = useState('all');
   const [expandedBook, setExpandedBook] = useState(null);
+  const [githubProjects, setGithubProjects] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/github-pinned')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setGithubProjects(data);
+        }
+        setLoadingProjects(false);
+      })
+      .catch(() => setLoadingProjects(false));
   }, []);
 
   const navItems = [
@@ -126,7 +141,7 @@ export default function ResearchPortfolio() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
           {[
-            { label: 'Projects Built', value: '12+' },
+            { label: 'Projects', value: githubProjects.length || '...' },
             { label: 'Blog Posts', value: '24' },
             { label: 'Papers Read', value: '50+' },
             { label: 'Contributions', value: '200+' },
@@ -154,36 +169,14 @@ export default function ResearchPortfolio() {
           </button>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              title: 'Distributed KV Store',
-              description: 'Raft-based key-value store with strong consistency guarantees',
-              tags: ['Go', 'Raft', 'gRPC'],
-              stars: 127,
-            },
-            {
-              title: 'Multi-Agent RL Framework',
-              description: 'Scalable framework for training cooperative agents',
-              tags: ['Python', 'PyTorch', 'Ray'],
-              stars: 89,
-            },
-            {
-              title: 'Consensus Visualizer',
-              description: 'Interactive tool for understanding distributed consensus',
-              tags: ['React', 'D3.js', 'WebGL'],
-              stars: 234,
-            },
-          ].map((project, i) => (
+          {githubProjects.slice(0, 3).map((project, i) => (
             <div
               key={i}
-              className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:-translate-y-1 group"
+              className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:-translate-y-1 group cursor-pointer"
+              onClick={() => window.open(project.link, '_blank')}
             >
               <div className="flex items-start justify-between mb-4">
                 <Code className="text-cyan-400" size={24} />
-                <div className="flex items-center gap-2 text-slate-500">
-                  <Star size={16} />
-                  <span className="text-sm">{project.stars}</span>
-                </div>
               </div>
               <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
                 {project.title}
@@ -294,7 +287,7 @@ export default function ResearchPortfolio() {
       </section>
 
       {/* Recent Publications */}
-      <section className="mb-20">
+      {/* <section className="mb-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold flex items-center gap-3">
             <Award className="text-cyan-400" size={32} />
@@ -342,7 +335,7 @@ export default function ResearchPortfolio() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Key Open Source Contributions */}
       <section>
@@ -440,79 +433,50 @@ export default function ResearchPortfolio() {
   const ProjectsPage = () => (
     <div className="pt-32 pb-20">
       <h2 className="text-5xl font-bold mb-12">Featured Projects</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          {
-            title: 'Distributed KV Store',
-            description: 'Raft-based key-value store with strong consistency guarantees and leader election',
-            tags: ['Go', 'Raft', 'gRPC'],
-            stars: 127,
-            link: '#'
-          },
-          {
-            title: 'Multi-Agent RL Framework',
-            description: 'Scalable framework for training cooperative agents with distributed experience replay',
-            tags: ['Python', 'PyTorch', 'Ray'],
-            stars: 89,
-            link: '#'
-          },
-          {
-            title: 'Consensus Visualizer',
-            description: 'Interactive tool for understanding distributed consensus algorithms in real-time',
-            tags: ['React', 'D3.js', 'WebGL'],
-            stars: 234,
-            link: '#'
-          },
-          {
-            title: 'Byzantine Fault Detector',
-            description: 'Implementation of PBFT with fault detection and recovery mechanisms',
-            tags: ['Rust', 'Tokio', 'Protocol Buffers'],
-            stars: 56,
-            link: '#'
-          },
-          {
-            title: 'RL Training Pipeline',
-            description: 'End-to-end pipeline for distributed RL training with experiment tracking',
-            tags: ['Python', 'Kubernetes', 'MLflow'],
-            stars: 143,
-            link: '#'
-          },
-          {
-            title: 'Gossip Protocol Sim',
-            description: 'Simulation framework for testing gossip protocols under various network conditions',
-            tags: ['Go', 'Docker', 'Prometheus'],
-            stars: 78,
-            link: '#'
-          },
-        ].map((project, i) => (
-          <div
-            key={i}
-            className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:-translate-y-1 group"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <Code className="text-cyan-400" size={24} />
-              <div className="flex items-center gap-2 text-slate-500">
-                <Star size={16} />
-                <span className="text-sm">{project.stars}</span>
-              </div>
-            </div>
-            <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
-              {project.title}
-            </h3>
-            <p className="text-slate-400 text-sm mb-4">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map((tag, j) => (
-                <span key={j} className="px-3 py-1 bg-slate-800 text-slate-400 rounded text-xs">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <a href={project.link} className="text-cyan-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-              View Project <ExternalLink size={14} />
-            </a>
-          </div>
-        ))}
+      
+      {/* GitHub Contributions */}
+      <div className="mb-12 bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <Github className="text-cyan-400" size={24} />
+          GitHub Contributions
+        </h3>
+        <img 
+          src="https://ghchart.rshah.org/22d3ee/SharmaLlama" 
+          alt="GitHub Contributions" 
+          className="w-full"
+        />
       </div>
+
+      {loadingProjects ? (
+        <div className="text-center text-slate-400 py-12">Loading projects from GitHub...</div>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {githubProjects.map((project, i) => (
+            <div
+              key={i}
+              className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:-translate-y-1 group"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <Code className="text-cyan-400" size={24} />
+              </div>
+              <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag, j) => (
+                  <span key={j} className="px-3 py-1 bg-slate-800 text-slate-400 rounded text-xs">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-cyan-400 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                View Project <ExternalLink size={14} />
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 
@@ -616,47 +580,7 @@ export default function ResearchPortfolio() {
       </p>
       
       <div className="space-y-6">
-        {[
-          {
-            title: 'Efficient Multi-Agent Coordination in Distributed RL Systems',
-            authors: 'Your Name, Co-Author',
-            venue: 'NeurIPS Workshop on Multi-Agent RL',
-            year: 2025,
-            type: 'Workshop Paper',
-            abstract: 'We present a novel approach to coordinating multiple RL agents in distributed training environments, achieving 40% faster convergence compared to baseline methods.',
-            link: '#',
-            code: '#'
-          },
-          {
-            title: 'Optimizing Consensus Protocols for High-Throughput Systems',
-            authors: 'Your Name',
-            venue: 'ArXiv Preprint',
-            year: 2024,
-            type: 'Preprint',
-            abstract: 'An analysis of Raft and Paxos variants under high-load conditions, with proposed optimizations for reducing latency in leader election.',
-            link: '#',
-            code: '#'
-          },
-          {
-            title: 'Byzantine Fault Tolerance in Modern Distributed Databases',
-            authors: 'Your Name, Collaborator A, Collaborator B',
-            venue: 'Systems Research Journal',
-            year: 2024,
-            type: 'Technical Report',
-            abstract: 'A comprehensive study of BFT implementations in production database systems, examining trade-offs between consistency and performance.',
-            link: '#'
-          },
-          {
-            title: 'Scaling Reinforcement Learning: Lessons from Distributed Training',
-            authors: 'Your Name',
-            venue: 'Personal Blog Series',
-            year: 2024,
-            type: 'Technical Writing',
-            abstract: 'A multi-part series documenting the challenges and solutions in building a distributed RL training pipeline from scratch.',
-            link: '#',
-            code: '#'
-          }
-        ].map((paper, i) => (
+        {publications.map((paper, i) => (
           <div key={i} className="bg-slate-900 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all">
             <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
