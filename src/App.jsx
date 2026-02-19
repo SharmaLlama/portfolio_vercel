@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Book, Code, FileText, User, Star, StarHalf, GitBranch, ExternalLink, ChevronRight, BookOpen, Award } from 'lucide-react';
 import { books } from './data/books';
 import { publications } from './data/publications';
+import { blogPosts } from './data/blog';
 
 
 const GoogleScholarIcon = ({ size = 20, className = "" }) => (
@@ -209,24 +210,13 @@ export default function ResearchPortfolio() {
           </button>
         </div>
         <div className="space-y-4">
-          {[
-            {
-              title: 'Understanding Raft Consensus: A Visual Guide',
-              date: 'January 15, 2026',
-              readTime: '12 min read',
-              excerpt: 'A deep dive into how Raft achieves distributed consensus through leader election and log replication...',
-            },
-            {
-              title: 'Building a Distributed Training Pipeline for RL',
-              date: 'January 8, 2026',
-              readTime: '15 min read',
-              excerpt: 'Lessons learned from implementing a scalable reinforcement learning training infrastructure...',
-            },
-          ].map((post, i) => (
-            <div
+          {blogPosts.slice(0, 2).map((post, i) => (
+            <a
               key={i}
-              className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:bg-slate-900 group cursor-pointer"
-              onClick={() => setActiveTab('blog')}
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:bg-slate-900 group"
             >
               <div className="flex items-start justify-between gap-6">
                 <div className="flex-1">
@@ -240,9 +230,9 @@ export default function ResearchPortfolio() {
                   </div>
                   <p className="text-slate-400 text-sm">{post.excerpt}</p>
                 </div>
-                <ChevronRight className="text-slate-600 group-hover:text-cyan-400 transition-all group-hover:translate-x-1" size={20} />
+                <ExternalLink className="text-slate-600 group-hover:text-cyan-400 transition-all" size={20} />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
@@ -484,11 +474,11 @@ export default function ResearchPortfolio() {
     <div className="pt-32 pb-20">
       <h2 className="text-5xl font-bold mb-6">Open Source Contributions</h2>
       <p className="text-slate-400 text-lg mb-12 max-w-3xl">
-        Contributing to the projects and communities that power my learning journey.
+        Contributing to the projects and communities that power my learning journey. (Soon to be updated)
       </p>
       
       <div className="space-y-6">
-        {[
+        {/* {[
           {
             project: 'ray-project/ray',
             description: 'Distributed computing framework for ML workloads',
@@ -567,7 +557,7 @@ export default function ResearchPortfolio() {
               ))}
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
@@ -620,39 +610,10 @@ export default function ResearchPortfolio() {
     <div className="pt-32 pb-20">
       <h2 className="text-5xl font-bold mb-12">Latest Posts</h2>
       <div className="space-y-6">
-        {[
-          {
-            title: 'Understanding Raft Consensus: A Visual Guide',
-            date: 'January 15, 2026',
-            readTime: '12 min read',
-            excerpt: 'A deep dive into how Raft achieves distributed consensus through leader election and log replication. Includes interactive visualizations and code examples.',
-            tags: ['Distributed Systems', 'Consensus', 'Go']
-          },
-          {
-            title: 'Building a Distributed Training Pipeline for RL',
-            date: 'January 8, 2026',
-            readTime: '15 min read',
-            excerpt: 'Lessons learned from implementing a scalable reinforcement learning training infrastructure. From data collection to model deployment.',
-            tags: ['RL', 'MLOps', 'Python']
-          },
-          {
-            title: 'The CAP Theorem in Practice',
-            date: 'December 28, 2025',
-            readTime: '8 min read',
-            excerpt: 'Real-world examples of navigating consistency, availability, and partition tolerance trade-offs in distributed systems.',
-            tags: ['Distributed Systems', 'Database']
-          },
-          {
-            title: 'Multi-Agent RL: Communication Protocols',
-            date: 'December 15, 2025',
-            readTime: '10 min read',
-            excerpt: 'Exploring different approaches to agent communication in multi-agent reinforcement learning environments.',
-            tags: ['RL', 'Multi-Agent', 'Research']
-          }
-        ].map((post, i) => (
+        {blogPosts.map((post, i) => (
           <div
             key={i}
-            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:bg-slate-900 group cursor-pointer"
+            className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover:bg-slate-900 group"
           >
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
@@ -665,15 +626,22 @@ export default function ResearchPortfolio() {
                   <span>{post.readTime}</span>
                 </div>
                 <p className="text-slate-400 leading-relaxed mb-3">{post.excerpt}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {post.tags.map((tag, j) => (
                     <span key={j} className="px-3 py-1 bg-slate-800 text-slate-400 rounded text-xs">
                       {tag}
                     </span>
                   ))}
                 </div>
+                <a 
+                  href={post.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-lg text-sm hover:bg-cyan-500/20 transition-colors"
+                >
+                  Read Post <ExternalLink size={14} />
+                </a>
               </div>
-              <ChevronRight className="text-slate-600 group-hover:text-cyan-400 transition-all group-hover:translate-x-1" size={24} />
             </div>
           </div>
         ))}
