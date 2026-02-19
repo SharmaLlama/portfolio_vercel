@@ -437,7 +437,7 @@ export default function ResearchPortfolio() {
       {/* GitHub Contributions */}
       <div className="mb-12 bg-slate-900 border border-slate-800 rounded-xl p-6">
         <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-          <Github className="text-cyan-400" size={24} />
+          <Github className="text-emerald-400" size={24} />
           GitHub Contributions
         </h3>
         <img 
