@@ -277,7 +277,7 @@ export const books = [
     title: "Learning Python",
     author: "Mark Lutz",
     cover: "https://m.media-amazon.com/images/I/81uCXHuaHfL._SL1500_.jpg",
-    rating: 5,
+    rating: 4.5,
     category: "technical",
     review: "This is the most comprehensive Python book in existence and it earns its reputation. At over 1500 pages it is genuinely intimidating, but Lutz covers everything — and I mean everything. The way he builds up from basic data types all the way through OOP, decorators, generators, and metaclasses is methodical and thorough. Its not a book you read cover to cover; its a reference you keep coming back to. I learned Python through a mix of this and online resources and every time I hit something I didn't fully understand, this book had the clearest explanation I could find. Not for beginners who want quick wins, but essential if you want to actually understand the language.",
     year: 2021
@@ -290,6 +290,16 @@ export const books = [
     rating: 4.5,
     category: "non-fiction",
     review: "This book is about how human nature has evolved as a result of sex. Matt Ridley forward thinking scientist and writer. The title of the book is from Lewis Carrol's character in \"From the Looking Glass\", the Red Queen. Just as the Red Queen must keep running to stay in the same place, humans must keep constantly evolving to defeat all of their pressures. Readers of The Red Queen may find that some of Ridley's notions work well as explanations for their own sexual behavior. Sex as a way to defeat disease provides a pleasurable justification for engaging in the practice. It helps us perceive sexual obsession as a positive thing that is necessary to the health of the species. Of course, people who value intelligence may find Ridley's explanation of human intellect less than satisfying, as it reduces brain power to a reproductive drive. Some particularly engaging features of the book relate to the role of dance, music, and humor as being unique to humans. Since sex is the foundation of human nature, dance, music, and humor are therefore important to the sexual relationship.",
+    year: 2026
+  }, 
+
+  {
+    title: "Genius: The Life and Science of Richard Feynman",
+    author: "James Gleick",
+    cover: "https://m.media-amazon.com/images/I/61GGKV0kYSL._SL1200_.jpg",
+    rating: 3.5,
+    category: "non-fiction",
+    review: "",
     year: 2026
   }, 
 ];
