@@ -5,7 +5,7 @@ export const blogPosts = [
     readTime: '13 min read',
     excerpt: 'A deep dive into the tokenisation and embeddings in transformers. This post is part of my series on Transformers from scratch.',
     tags: ['Machine Learning', 'Transformers', 'Tokenisation', 'Embeddings'],                                                                                                                                                                       
-    link: 'https://blog.utkarshsharma.io/posts/tokenisation-embeddings/'
+    link: 'http://blog.utkarshsharma.io/posts/transformers-from-scratch/tokenisation-embeddings/index.html'
   },
 
   // {
