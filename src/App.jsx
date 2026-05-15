@@ -379,15 +379,15 @@ export default function ResearchPortfolio() {
       <div className="grid md:grid-cols-2 gap-12">
         <div className="space-y-6">
           <p className="text-slate-300 leading-relaxed text-lg">
-            I'm on a mission to become a research engineer specializing in distributed systems and reinforcement learning.
-            Over the next 6-12 months, I'm diving deep into system design, consensus algorithms, and ML infrastructure.
+            I'm on a mission to become a research engineer specialising in distributed systems and reinforcement learning.
+            Over the next 6-12 months, I'm diving deep into system design, SOTA LLM and RL paradigms and ML infrastructure on my local 2 GPU setup.
           </p>
           <p className="text-slate-300 leading-relaxed text-lg">
             My approach combines rigorous theoretical understanding with practical implementation. I believe the best
             way to learn is by building, breaking, and rebuilding systems from scratch.
           </p>
           <p className="text-slate-300 leading-relaxed text-lg">
-            When I'm not coding or reading papers, you'll find me exploring new technical books, contributing to open source,
+            When I'm not coding or reading papers, you'll find me exploring new technical books, contributing to open source (very soon in the future),
             or writing about what I'm learning on my blog.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">
@@ -402,12 +402,12 @@ export default function ResearchPortfolio() {
           <h3 className="text-xl font-semibold mb-6 text-cyan-400">Current Focus</h3>
           <ul className="space-y-4">
             {[
-              'Implementing Raft consensus from scratch',
-              'Multi-agent RL systems',
-              'Distributed training architectures',
-              'Byzantine fault tolerance',
+              'Building out transformers from scratch',
+              'Figuring out ML infrastructure for LLMs',
               'Reading foundational papers',
-              'Contributing to Ray & PyTorch'
+              'Contributing to PyTorch',
+              'Learning fundamentals of Systems Design',
+              'Learning fundamentals of Distributed Systems'
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3">
                 <ChevronRight className="text-cyan-400 mt-1 flex-shrink-0" size={20} />
