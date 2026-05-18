@@ -818,7 +818,7 @@ export default function ResearchPortfolio() {
               <a href="https://github.com/SharmaLlama" className="text-slate-400 hover:text-cyan-400 transition-colors">
                 <Github size={18} />
               </a>
-              <a href="https://linkedin.com/in/yourusername" className="text-slate-400 hover:text-cyan-400 transition-colors">
+              <a href="https://www.linkedin.com/in/utkarsh-sharma-05/" className="text-slate-400 hover:text-cyan-400 transition-colors">
                 <Linkedin size={18} />
               </a>
               <a href="mailto:sharmautkarsh0504@gmail.com" className="text-slate-400 hover:text-cyan-400 transition-colors">
